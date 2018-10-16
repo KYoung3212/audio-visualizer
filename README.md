@@ -1,14 +1,14 @@
-# HTML5 Web Audio Player
+##Web Audio Player
 
 [Screenshot](screenshot1.png)
 [Screenshot](screenshot2.png)
 
 
-## Demo of the showcase
+## Demo 
 
 Can be found at [https://www.kevin-young.us/audio-visualizer](https://www.kevin-young.us/audio-visualizer).
 
-## How to use
+## Tutorial
 
 1. Select an audio file
 2. Press "Play song"
