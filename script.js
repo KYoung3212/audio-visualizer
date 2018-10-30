@@ -138,6 +138,7 @@ function enableButton()
 function demoButtonClick()
 
 {
+	console.log('test')
 	fileName = '       Toto - Africa    -    Demo Song       .mp3'
 	var request = new XMLHttpRequest();
 	request.open('GET', 'Toto-Africa.mp3', true);
@@ -147,7 +148,8 @@ function demoButtonClick()
 		reader.readAsArrayBuffer(request.response);
 		reader.onload =  function(e){
 			var fileResult = e.target.result;
-			// console.log(e.target);
+			console.log(e.target);
+			console.log('test');
 			if(audioContext == null)
 			{
 				return;
