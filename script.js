@@ -44,7 +44,11 @@ window.onload = function()
 	
 	audioInput = document.getElementById("chooser-input");
 	audioInput.onchange = cbInputChange;
-	
+	// DEMO BUTTON
+	demoButton = document.getElementById("demo-button");
+	demoButton.onclick = demoButtonClick;
+	disableButton();
+
 	playButton = document.getElementById("chooser-button");
 	playButton.onclick = cbButtonClick;
 	disableButton();
@@ -103,6 +107,10 @@ function cbInputChange()
 	{
 		file = audioInput.files[0];
 		fileName = file.name;
+console.log('audioInput', audioInput)
+		console.log(file);
+		console.log("filename", fileName)
+
 		
 		// console.log("Play audio: " + fileName);
 		
@@ -122,6 +130,126 @@ function enableButton()
 	document.getElementById("chooser-button").className = "";
 }
 
+
+
+
+
+
+function demoButtonClick()
+
+{
+	fileName = '       Toto - Africa    -    Demo Song       .mp3'
+	var request = new XMLHttpRequest();
+	request.open('GET', 'Toto-Africa.mp3', true);
+	request.responseType = 'blob';
+	request.onload = function() {
+		var reader = new FileReader();
+		reader.readAsArrayBuffer(request.response);
+		reader.onload =  function(e){
+			var fileResult = e.target.result;
+			console.log(e.target);
+			if(audioContext == null)
+			{
+				return;
+			}
+			audioContext.decodeAudioData(fileResult, function(buffer)
+			{
+				setTimeout(function() { visualize(buffer); document.getElementById("spinner-outer").className = "hidden"; }, 1000);
+				
+				showScene();
+			}, function(error)
+			{
+				console.error(error);
+				showError("Error while decoding the audio", error.toString());
+				document.getElementById("spinner-outer").className = "hidden";
+			});
+			document.getElementById("spinner-outer").className = "";
+
+		};
+	};
+	request.send();
+
+
+	// const reader = new FileReader();
+
+	// reader.onloadend = function(){
+	// 	console.log('Reader Result:', reader.result);
+	// }
+
+	// reader.readAsArrayBuffer('./Toto-Africa.mp3');
+
+	// console.log('File:', file);
+// var fileReader = new FileReader();
+// 	fileReader.onload = function(e)
+// 	{
+// 		var fileResult = e.target.result;
+// 		console.log(e.target);
+// 		if(audioContext == null)
+// 		{
+// 			return;
+// 		}
+// 		audioContext.decodeAudioData(fileResult, function(buffer)
+// 		{
+// 			setTimeout(function() { visualize(buffer); document.getElementById("spinner-outer").className = "hidden"; }, 1000);
+			
+// 			showScene();
+// 		}, function(error)
+// 		{
+// 			console.error(error);
+// 			showError("Error while decoding the audio", error.toString());
+// 			document.getElementById("spinner-outer").className = "hidden";
+// 		});
+// 	};
+// 	fileReader.onerror = function(error)
+// 	{
+// 		console.error(error);
+// 		showError("Error while reading file", error.toString());
+// 		document.getElementById("spinner-outer").className = "hidden";
+// 	};
+
+// 	console.log('File:', file);
+	
+// 	fileReader.readAsArrayBuffer('Toto-Africa.mp3');
+	
+// 	document.getElementById("spinner-outer").className = "";
+}
+// else
+// {
+// 	showError("Not an audio file", "The selected file does not match to the MIME-pattern: audio/*");
+// }
+
+
+// {		
+// 	var demoSong = new Audio('Toto-Africa.mp3'); 
+// 			// file = audioInput.files[0];
+// 			file = demoSong;
+// console.log(file);
+// console.log(file)
+
+// 			fileName = file.name;
+// 			var fileReader = new FileReader();
+// 			fileReader.onload = function(e)
+// 			{
+// 				var fileResult = e.target.result;
+// 				if(audioContext == null)
+// 				{
+// 					return;
+// 				}
+// 				audioContext.decodeAudioData(fileResult, function(buffer)
+// 				{
+// 					setTimeout(function() { visualize(buffer); document.getElementById("spinner-outer").className = "hidden"; }, 1000);
+					
+// 					showScene();
+// 				})
+// 			}
+// 		}
+			
+		
+		
+
+
+
+
 function cbButtonClick()
 {
 	if(!buttonDisabled)
@@ -132,6 +260,7 @@ function cbButtonClick()
 			fileReader.onload = function(e)
 			{
 				var fileResult = e.target.result;
+				console.log(e.target);
 				if(audioContext == null)
 				{
 					return;
@@ -154,6 +283,8 @@ function cbButtonClick()
 				showError("Error while reading file", error.toString());
 				document.getElementById("spinner-outer").className = "hidden";
 			};
+
+			console.log('File:', file);
 			
 			fileReader.readAsArrayBuffer(file);
 			
