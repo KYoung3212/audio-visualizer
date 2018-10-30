@@ -44,7 +44,11 @@ window.onload = function()
 	
 	audioInput = document.getElementById("chooser-input");
 	audioInput.onchange = cbInputChange;
-	
+	// DEMO BUTTON
+	demoButton = document.getElementById("demo-button");
+	demoButton.onclick = demoButtonClick;
+	disableButton();
+
 	playButton = document.getElementById("chooser-button");
 	playButton.onclick = cbButtonClick;
 	disableButton();
@@ -104,6 +108,10 @@ function cbInputChange()
 		file = audioInput.files[0];
 		fileName = file.name;
 		
+		console.log(file);
+		console.log("filename", fileName)
+
+		
 		// console.log("Play audio: " + fileName);
 		
 		enableButton();
@@ -122,6 +130,43 @@ function enableButton()
 	document.getElementById("chooser-button").className = "";
 }
 
+
+
+
+
+
+function demoButtonClick()
+{		
+	var demoSong = new Audio('Toto-Africa.mp3'); 
+			// file = audioInput.files[0];
+			file = demoSong;
+console.log(file);
+console.log(file)
+
+			fileName = file.name;
+			var fileReader = new FileReader();
+			fileReader.onload = function(e)
+			{
+				var fileResult = e.target.result;
+				if(audioContext == null)
+				{
+					return;
+				}
+				audioContext.decodeAudioData(fileResult, function(buffer)
+				{
+					setTimeout(function() { visualize(buffer); document.getElementById("spinner-outer").className = "hidden"; }, 1000);
+					
+					showScene();
+				})
+			}
+		}
+			
+		
+		
+
+
+
+
 function cbButtonClick()
 {
 	if(!buttonDisabled)
@@ -132,6 +177,7 @@ function cbButtonClick()
 			fileReader.onload = function(e)
 			{
 				var fileResult = e.target.result;
+				console.log(e.target);
 				if(audioContext == null)
 				{
 					return;
