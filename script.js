@@ -147,7 +147,7 @@ function demoButtonClick()
 		reader.readAsArrayBuffer(request.response);
 		reader.onload =  function(e){
 			var fileResult = e.target.result;
-			console.log(e.target);
+			// console.log(e.target);
 			if(audioContext == null)
 			{
 				return;
@@ -260,7 +260,7 @@ function cbButtonClick()
 			fileReader.onload = function(e)
 			{
 				var fileResult = e.target.result;
-				console.log(e.target);
+				// console.log(e.target);
 				if(audioContext == null)
 				{
 					return;
@@ -284,7 +284,7 @@ function cbButtonClick()
 				document.getElementById("spinner-outer").className = "hidden";
 			};
 
-			console.log('File:', file);
+			// console.log('File:', file);
 			
 			fileReader.readAsArrayBuffer(file);
 			
